@@ -33,8 +33,7 @@ class Event_Queue {
             Event *temp;
             while (head != NULL) {
                 temp = head->nextEvent;
-                delete head->p;
-                delete head;
+                free(head);
                 head = temp;
             }
         }
@@ -102,6 +101,7 @@ class Event_Queue {
                 schedule_event(DEP, e->time + e->p->nextProcess->serviceTime, e->p->nextProcess); 
             }
             processCount++;
+            free(e->p);
         }
 
         float generateArrivalTime() {
